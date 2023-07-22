@@ -1,4 +1,3 @@
-*.json
 *.pyc
 *.swp
 *.swo
@@ -13,3 +12,4 @@ app2.js
 emmitter.js
 express.js
 public
+*.gitignore
