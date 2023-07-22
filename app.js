@@ -12,7 +12,7 @@ const users = require('./routes/users')
 const name = process.env.DB_USER
 const password = process.env.DB_PASSWORD
 
-console.log(password)
+
 mongoose.connect(
     `mongodb+srv://${name}:${password}@cluster0.xoq86dz.mongodb.net/?retryWrites=true&w=majority`
 ).then(()=>{
