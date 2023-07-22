@@ -1,9 +1,7 @@
-const data = require('../practice')
 const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
 const {Places, User} = require('../models/schema')
-const uuid = require('uuid')
 const { validationResult } = require('express-validator')
 
 

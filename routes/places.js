@@ -1,7 +1,6 @@
 const express =  require('express')
 const app = express()
 const routes = express.Router()
-const data = require('../practice.js')
 const {check} = require('express-validator')
 const checkAuth = require('../middleware/check-auth.js')
 const {postLogic, getLogic, updateLogic, deleteLogic} = require('../controller/placesController.js')

@@ -7,7 +7,6 @@
 *.png
 *.env
 node_modules
-practice.js
 app2.js
 emmitter.js
 express.js
