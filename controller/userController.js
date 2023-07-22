@@ -28,7 +28,7 @@ const getUsers = async (req, res, next)=>{
 
 const getUser = async (req, res, next)=>{
     const id = req.params.id
-    console.log('getUsers')
+  
    let users;
    try{
         users = await User.findById(id)
@@ -60,7 +60,7 @@ const signUp = async (req, res, next)=>{
     }
 
     let result;
-    console.log(name, email, password)
+  
     let existingUser;
 
     try{

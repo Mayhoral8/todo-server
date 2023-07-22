@@ -41,10 +41,7 @@ app.use('/api/tasks', places)
 
 app.use('/api/users', users)
 app.listen(5000)
-// server.listen(8000)
-
-// console.log(routes)
 
 
 
-// module.exports = server
+

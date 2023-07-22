@@ -8,7 +8,7 @@ const { validationResult } = require('express-validator')
 
 
 const postLogic = async (req, res, next)=>{
-    console.log(req.body.title, req.body.time)
+  
     const errors = validationResult(req)
 
     if(!errors.isEmpty()){
@@ -53,11 +53,7 @@ const postLogic = async (req, res, next)=>{
     
     res.status(201).json({success: true, message: 'place created!'})
 
-    // console.log(req.body)
-    
-   
 
-    // res.status(401).send('please provide name')
 }
 
 const getLogic = async (req, res, next)=>{
@@ -83,7 +79,7 @@ const updateLogic = async (req, res, next)=>{
     
     const {title, description} = req.body
     const id = req.params.id
-    console.log(id)
+   
     let place;
     try{
          place = await Places.findById(id)
@@ -96,7 +92,7 @@ const updateLogic = async (req, res, next)=>{
     }else{
         place.title = title
         place.description = description
-        console.log(place)
+        
         try{
             await place.save()
         }catch(err){
@@ -135,24 +131,5 @@ const deleteLogic = async (req, res, next)=>{
 }
 
 
-// const postLogic = (req, res)=>{
-//     const id = req.params.id
-//     const {name} = req.body
-//     // console.log(req.body)
-//     const authPerson = data.find((data)=>{
-//         return data.id === id
-//     })
-//     if(name && authPerson){
-//         const newData = [...data, req.body]
-//         // console.log(newDA)
-//         return res.status(201).json(newData)
-//     }
-//     if(!id){
-//         res.status(401).json({success: false, message: 'user id doesn\'t exist'})
-//     }if(!name){
-//         res.status(401).json({success: false, message:'please provide name'})
-//     }
 
-//     res.status(401).send('please provide name')
-// }
 module.exports = {postLogic, getLogic, updateLogic, deleteLogic}
