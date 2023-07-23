@@ -12,3 +12,5 @@ emmitter.js
 express.js
 public
 *.gitignore
+package-lock.json
+.gitignore

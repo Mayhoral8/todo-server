@@ -1,6 +1,7 @@
 const {MongoClient, ServerApiVersion} = require('mongodb')
-
-const uri = "mongodb+srv://Mayhoral:Mayowa787898@cluster0.xoq86dz.mongodb.net/?retryWrites=true&w=majority";
+const {config}= require('dotenv')
+config()
+const uri =`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.xoq86dz.mongodb.net/?retryWrites=true&w=majority`;
 
 const createProduct = async (req, res)=>{
     const newProduct = {
