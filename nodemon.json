@@ -1,7 +1,0 @@
-{
-    "env":{
-        "DB_USER": "Mayhoral",
-        "DB_PASSWORD": "Mayowa787898",
-        "JWT_KEY":"super_secret_dont_share"
-    }
-}
