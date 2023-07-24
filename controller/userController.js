@@ -49,8 +49,7 @@ const getUser = async (req, res, next)=>{
 
 const signUp = async (req, res, next)=>{
     const {name, email, password, image} = req.body
-    console.log(image)
-    console.log()
+   
     const errors = validationResult(req)
     if(!errors.isEmpty()){
         return res.status(422).json({success: false, message: 'check input field'})
