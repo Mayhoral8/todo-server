@@ -48,8 +48,8 @@ const getUser = async (req, res, next)=>{
 
 
 const signUp = async (req, res, next)=>{
-    const {name, email, password, firebaseImgUrl} = req.body
-    console.log(firebaseImgUrl)
+    const {name, email, password, image} = req.body
+    console.log(image)
     console.log()
     const errors = validationResult(req)
     if(!errors.isEmpty()){
@@ -79,8 +79,7 @@ const signUp = async (req, res, next)=>{
             name,
             email,
             password: hashedPassword,
-            image: req.file.path,
-            firebaseImgUrl,
+            image: image,
             places: []
         })
         
@@ -101,7 +100,7 @@ const signUp = async (req, res, next)=>{
         }catch(err){
             return next(res.status(500).json({success: false, message: 'Could not create user, please try again'}))
         }
-        return res.status(201).json({success: true, userId: createdUser.id, name: createdUser.name, email: createdUser.email, token:token, image: createdUser.firebaseImgUrl})
+        return res.status(201).json({success: true, userId: createdUser.id, name: createdUser.name, email: createdUser.email, token:token, image: createdUser.image})
     
    
 }
@@ -135,7 +134,7 @@ const login = async (req, res, next)=>{
         return next(res.status(500).json({success: false, message: 'Logging In Failed, please try again'}))
     }
 
-        return res.status(201).json({success: true, userId: existingUser.id, name: existingUser.name, image: existingUser.firebaseImgUrl, token:token})
+        return res.status(201).json({success: true, userId: existingUser.id, name: existingUser.name, image: existingUser.image, token:token})
    
 }
 
