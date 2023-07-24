@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const HttpError = require('../models/error-model')
-const {storage, uploadBytes, ref, getDownloadURL, listAll} = require('../utilities/firebase-config')
+
 
 config()
 
