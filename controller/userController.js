@@ -5,6 +5,7 @@ const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const HttpError = require('../models/error-model')
+const {storage, uploadBytes, ref, getDownloadURL, listAll} = require('../utilities/firebase-config')
 
 config()
 
@@ -47,7 +48,9 @@ const getUser = async (req, res, next)=>{
 
 
 const signUp = async (req, res, next)=>{
-    const {name, email, password} = req.body
+    const {name, email, password, firebaseImgUrl} = req.body
+    console.log(firebaseImgUrl)
+    console.log()
     const errors = validationResult(req)
     if(!errors.isEmpty()){
         return res.status(422).json({success: false, message: 'check input field'})
@@ -77,8 +80,11 @@ const signUp = async (req, res, next)=>{
             email,
             password: hashedPassword,
             image: req.file.path,
+            firebaseImgUrl,
             places: []
         })
+        
+            
         try{
             result = await createdUser.save()
             if(!result){
@@ -95,7 +101,7 @@ const signUp = async (req, res, next)=>{
         }catch(err){
             return next(res.status(500).json({success: false, message: 'Could not create user, please try again'}))
         }
-        return res.status(201).json({success: true, userId: createdUser.id, name: createdUser.name, email: createdUser.email, token:token, image: createdUser.image})
+        return res.status(201).json({success: true, userId: createdUser.id, name: createdUser.name, email: createdUser.email, token:token, image: createdUser.firebaseImgUrl})
     
    
 }
@@ -129,8 +135,33 @@ const login = async (req, res, next)=>{
         return next(res.status(500).json({success: false, message: 'Logging In Failed, please try again'}))
     }
 
-        return res.status(201).json({success: true, userId: existingUser.id, name: existingUser.name, image: existingUser.image, token:token})
+        return res.status(201).json({success: true, userId: existingUser.id, name: existingUser.name, image: existingUser.firebaseImgUrl, token:token})
    
 }
+
+// const updateUser = async(req, res, next)=>{
+//     const id = req.params.id
+
+    
+//    let user;
+//    try{
+//         user = await User.findById(id)
+//     }catch(err){ 
+//          res.status(500).json({success: false, message: 'user Id does not exist'})  
+//     }
+//     if(!user){
+//         res.status(400).json({success: false, message: 'user not found'})
+//     } else{
+//         user.image = req.body.imageUrl
+
+//         try{
+//             await user.save()
+//         }catch(err){
+//                 res.status(501).json({success: false, message: 'could not update user image'})
+//         }
+//         return res.status(200).json({success: true, message: user.toObject({getters: true})})
+//     } 
+       
+// }
 
 module.exports = {getUsers, getUser, signUp, login}
