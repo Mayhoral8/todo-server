@@ -4,17 +4,17 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const createPlaces = new mongoose.Schema({
     title : { type: String, required: true},
-    description: {type: String, required: true},
+    time: {type: String, required: true},
     creator: { type: mongoose.Types.ObjectId, required: true, ref:'User'}
 })
 
 
 const createUser = new mongoose.Schema({
-    name : { type: String, required: true},
+    name: { type: String, required: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true, minlength: 6},
-    image: {type: String, required: true},
-    places:  [{ type: mongoose.Types.ObjectId, required: true, ref:'Place'}]
+    places:  [{ type: mongoose.Types.ObjectId, required: true, ref:'Place'}],
+    imageUrl: {type: String, required: false},
 })
 
 

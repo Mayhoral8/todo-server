@@ -1,4 +1,5 @@
 const {config} = require('dotenv')
+config()
 const path = require('path')
 const os = require('os')
 const express = require('express')
@@ -7,7 +8,6 @@ const places = require('./routes/places')
 const { mongoose } = require('mongoose')
 
 
-config()
 const users = require('./routes/users')
 const name = process.env.DB_USER
 const password = process.env.DB_PASSWORD
@@ -21,13 +21,13 @@ mongoose.connect(
     console.log('connection failed!')
 })
 
-app.use(express.static('./public'))
+// app.use(express.static('./public'))
 // Parse form
 app.use(express.urlencoded({extended: false})) 
 // parse json post
 app.use(express.json())
 
-app.use('/uploads/images', express.static(path.join('uploads', 'images')))
+// app.use('/uploads/images', express.static(path.join('uploads', 'images')))
 
 // handles CORS errors
 app.use((req, res, next)=>{

@@ -8,14 +8,11 @@ const { validationResult } = require('express-validator')
 
 
 const postLogic = async (req, res, next)=>{
-  
     const errors = validationResult(req)
-
     if(!errors.isEmpty()){
         const response = res.status(422).json({success: false, message: 'check input field'})
         return next(response)
     }
-    const id = req.params.id
     const {title, description, category, time, creator} = req.body
  
     const createdPlace = new Places({
@@ -29,7 +26,6 @@ const postLogic = async (req, res, next)=>{
 
     try{
         user = await User.findById(creator)
-
     }catch(err){
        res.status(500).json({success: false, message: 'failed to fetch user'})
        return next(err)
@@ -39,17 +35,20 @@ const postLogic = async (req, res, next)=>{
         const response = res.status(400).json({success: false, message: 'could not find user for selected iD'})
         return next(response)
     }
+    
 
     try{
+
         const sess = await mongoose.startSession();
         sess.startTransaction();
-      await createdPlace.save({sessionStorage: sess});
-       user.places.push(createdPlace)
-      await user.save({sessionStorage: sess})
-      await sess.commitTransaction();
-    } catch(err){
-       return next(res.status(400).json({success: false, message: 'failed to create a new task'})       )
+        await createdPlace.save({sessionStorage: sess});
+        user.places.push(createdPlace)
+        await user.save({sessionStorage: sess})
+        await sess.commitTransaction();
+    }catch(err){
+        return next(res.status(500).json({success: false, message:'Could not create a new task'}))
     }
+  
     
     res.status(201).json({success: true, message: 'place created!'})
 
@@ -77,7 +76,7 @@ const updateLogic = async (req, res, next)=>{
         res.status(422).json({success: false, message: 'check input field'})
     }
     
-    const {title, description} = req.body
+    const {title, time} = req.body
     const id = req.params.id
    
     let place;
@@ -91,7 +90,7 @@ const updateLogic = async (req, res, next)=>{
         res.status(400).json({success: false, message: 'No place was found for the selected ID'})
     }else{
         place.title = title
-        place.description = description
+        place.time = time
         
         try{
             await place.save()

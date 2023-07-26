@@ -78,7 +78,7 @@ const signUp = async (req, res, next)=>{
             name,
             email,
             password: hashedPassword,
-            image: image,
+            imageUrl: image,
             places: []
         })
         
@@ -99,7 +99,7 @@ const signUp = async (req, res, next)=>{
         }catch(err){
             return next(res.status(500).json({success: false, message: 'Could not create user, please try again'}))
         }
-        return res.status(201).json({success: true, userId: createdUser.id, name: createdUser.name, email: createdUser.email, token:token, image: createdUser.image})
+        return res.status(201).json({success: true, userId: createdUser.id, name: createdUser.name, email: createdUser.email, token:token, image: createdUser.imageUrl})
     
    
 }
