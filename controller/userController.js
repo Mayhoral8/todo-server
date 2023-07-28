@@ -133,7 +133,7 @@ const login = async (req, res, next)=>{
         return next(res.status(500).json({success: false, message: 'Logging In Failed, please try again'}))
     }
 
-        return res.status(201).json({success: true, userId: existingUser.id, name: existingUser.name, image: existingUser.image, token:token})
+        return res.status(201).json({success: true, userId: existingUser.id, name: existingUser.name, image: existingUser.imageUrl, token:token})
    
 }
 
